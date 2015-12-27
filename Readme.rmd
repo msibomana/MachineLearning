@@ -1,0 +1,44 @@
+---
+title: "Practical machine learning project"
+author: "MSI"
+date: "December 27, 2015"
+output: html_document
+---
+
+This document reports methods and results of the practical machine learning project. The project goal is to find the best model to predict the performance of weight lifting activity using data from accelerometers on the belt, forearm, arm, and dumbell. The training and testing data is extracted from a dataset of 6 participants with 19622 rows with 160 columns. First the data is read from pml-training.csv file and only accelarometers variables and classe outcome are kept:
+
+```{r warning=FALSE}
+library(caret)
+library(dplyr)
+set.seed(12345)
+data <- read.csv("pml-training.csv", na.strings = c("","#DIV/0!"))
+accelData <- tbl_df(data) %>% select(contains("accel"),classe)
+```
+
+Then the data is partioned 60% for training and 40% for testin:
+
+```{r}
+inTrain <- createDataPartition(y=accelData$classe, p=0.6, list=FALSE)
+training <- accelData[inTrain,]
+testing <-  accelData[-inTrain,]
+```
+
+First try the simplest decision tree model:
+```{r}
+modRpart <- train(classe~., data=training, method="rpart")
+print(modRpart$finalModel)
+```
+The model performs very poorly with an accuracy of 42% on both training and testing data.
+
+Then try more advanced methods `gbm` and `rf` which allows for advanced prediction variables selection.
+```{r}
+#modGBM <- train(classe~., data=training, method="gbm", verbose=FALSE)
+#modRF <- train(classe~., data=training, method="rf")
+```
+Unfortunately, the 2 models didn't converge to a solution after several hours running.
+
+*** The project is a failure, I submit this report however to access other students reports to find out what I did wrong ***
+
+
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
