@@ -37,8 +37,5 @@ Then try more advanced methods `gbm` and `rf` which allows for advanced predicti
 ```
 Unfortunately, the 2 models didn't converge to a solution after several hours running.
 
-*** The project is a failure, I submit this report however to access other students reports to find out what I did wrong ***
+** The project is a failure, I submit this report however to access other students reports to find out what I did wrong **
 
-
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
